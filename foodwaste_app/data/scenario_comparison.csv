@@ -1,0 +1,6 @@
+Scenario,Status,Config,NAC_M$/yr,GHG_tCO2e/yr,EP_marine_tN-eq/yr
+Household,ModelStatus.OptimalGlobal,Conv: SLF 45.0% / INC 30.0% / HTL 25.0% | Bio=ENZ | Mech=SHR | HTLrec: CEN 100.0% | GasUpg: - | STB=no,4.1109,946.8949,3.8924
+Restaurant,ModelStatus.OptimalGlobal,Conv: SLF 45.0% / INC 30.0% / HTL 25.0% | Bio=ENZ | Mech=SHR | HTLrec: CEN 100.0% | GasUpg: - | STB=no,5.3446,1096.7515,5.1029
+Institutional,ModelStatus.OptimalGlobal,Conv: SLF 45.0% / INC 30.0% / HTL 25.0% | Bio=ENZ | Mech=SHR | HTLrec: CEN 100.0% | GasUpg: - | STB=no,6.03,1293.99,5.5003
+Retail,ModelStatus.OptimalGlobal,Conv: SLF 45.0% / INC 30.0% / HTL 25.0% | Bio=ENZ | Mech=SHR | HTLrec: CEN 100.0% | GasUpg: - | STB=no,5.8926,1421.6658,6.2488
+Market,ModelStatus.OptimalGlobal,Conv: SLF 45.0% / INC 30.0% / HTL 25.0% | Bio=ENZ | Mech=SHR | HTLrec: CEN 100.0% | GasUpg: - | STB=no,3.2791,762.8206,7.4245
