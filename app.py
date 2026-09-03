@@ -548,7 +548,7 @@ def render_feed_inputs(scenarios, feedstock_df):
                 font=dict(size=14, color=INK_PRIMARY),
             )],
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     details.caption(
         "Feed rate and operating hours scale the cost and emissions "
@@ -960,7 +960,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
             margin=dict(t=20, b=10),
             height=480,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         st.caption(
             "Lower-left is better on both axes shown, but cheaper almost always "
             "means more GHG allowed. That's the tradeoff, not a bug. Point size "
@@ -1016,7 +1016,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
                 margin=dict(t=20, b=10, l=10),
                 height=90 + 50 * len(techs),
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width="stretch")
         else:
             st.info("No conversion-technology split recorded for this point.")
 
@@ -1060,7 +1060,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
                 margin=dict(t=20, b=10, l=10, r=20),
                 height=360,
             )
-            st.plotly_chart(cfig, use_container_width=True)
+            st.plotly_chart(cfig, width="stretch")
             st.caption(
                 f"Total annualized cost (NAC) for {selected_scenario}'s cheapest "
                 f"route: **${cnac:.2f}M/yr**."
@@ -1120,7 +1120,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
                 height=380,
                 showlegend=False,
             )
-            st.plotly_chart(fig3, use_container_width=True)
+            st.plotly_chart(fig3, width="stretch")
 
             st.dataframe(
                 comparison_df.rename(columns={
@@ -1128,7 +1128,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
                     "GHG_tCO2e/yr": "GHG (tCO2e/yr)",
                     "EP_marine_tN-eq/yr": "Marine EP (t N-eq/yr)",
                 }),
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
             )
         else:
@@ -1142,7 +1142,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
         if feedstock_df is not None:
             show_cols = [c for c in feedstock_df.columns if c != "Scenario"]
             fdf = feedstock_df.set_index("Scenario")[show_cols]
-            st.dataframe(fdf, use_container_width=True)
+            st.dataframe(fdf, width="stretch")
 
             metric = st.selectbox("Compare one property across scenarios", show_cols, index=0)
             fig4 = go.Figure(
@@ -1161,7 +1161,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
                 margin=dict(t=20, b=10),
                 height=360,
             )
-            st.plotly_chart(fig4, use_container_width=True)
+            st.plotly_chart(fig4, width="stretch")
         else:
             st.info("feedstock_composition.csv not found. Add it to data/ to enable this view.")
 
@@ -1170,7 +1170,7 @@ def render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios):
     # -------------------------------------------------------------
     with tab_data:
         st.subheader("All Pareto points")
-        st.dataframe(pareto_df, use_container_width=True, hide_index=True)
+        st.dataframe(pareto_df, width="stretch", hide_index=True)
         st.download_button(
             "Download filtered CSV",
             data=scenario_df.to_csv(index=False).encode("utf-8"),

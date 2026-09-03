@@ -6,6 +6,20 @@ it reads pre-solved CSV files and lets you explore the cost/GHG/marine-
 eutrophication tradeoff and the resulting technology blend per feedstock
 scenario (Household, Restaurant, Institutional, Retail, Market).
 
+It opens on a landing page (`app.py`, gated behind the `?page=app` query
+param) with a full-bleed hero photo, a headline, and an "Explore the
+results →" button that leads into the dashboard.
+
+## Changing the hero photo
+
+`assets/hero.jpg` is the background photo on the landing page. To swap it:
+replace that file with a different image (same filename, or update the
+extension list checked in `_hero_background_css()` in `app.py`) — it's
+embedded directly into the page at load time, so it works fully offline,
+with no external image host involved. If `assets/hero.jpg` doesn't exist,
+the app falls back to a freely-licensed photo hotlinked from Pexels (see
+`FALLBACK_HERO_IMAGE_URL` near the top of `app.py`).
+
 ## Why the app doesn't solve anything itself
 
 The notebook solves a nonconvex mixed-integer nonlinear program with BARON

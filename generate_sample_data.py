@@ -5,6 +5,10 @@ notebook (DetermineSceanrio1.ipynb) already produces:
   - pareto_all_scenarios.csv   <- same columns as your notebook's Cell 99 output
   - scenario_comparison.csv    <- same columns as your notebook's Cell 85 output
   - feedstock_composition.csv  <- the 5 HOUSEHOLD/RESTAURANT/... dicts from Cell 83
+  - cost_breakdown.csv         <- each scenario's NAC split into Capital / Labor /
+                                    Utilities / Overhead / Materials / Working
+                                    capital (placeholder split -- see the notebook's
+                                    costing cell for the real CCAC/CCLB/etc. terms)
 
 This script exists ONLY so the app has something to render before you have a
 real BARON solve finished. Once you have real output files with these exact
@@ -154,6 +158,42 @@ def gen_scenario_comparison(pareto_rows):
     return rows
 
 
+# ---------------------------------------------------------------------------
+# Cost breakdown per scenario -- splits each scenario's cheapest-point NAC
+# into the cost categories the notebook's costing cell actually computes
+# (Capital_eq/ACC_eq, Overhead_eq+INS_eq, Labor_eq, Utility_eq, CCRM+disposal,
+# WC_eq). The SPLIT PERCENTAGES below are placeholder process-cost rules of
+# thumb (NOT derived from a real solve) -- they just give the Cost
+# Specifications page something realistic-shaped to show per scenario until
+# the notebook exports the real CCAC/CCLB/CCUC/CCOC/CCRM/CCWC values.
+# ---------------------------------------------------------------------------
+COST_CATEGORY_BASE_PCT = {
+    "Capital_MUSD_per_yr": 0.42,
+    "Overhead_MUSD_per_yr": 0.18,
+    "Labor_MUSD_per_yr": 0.15,
+    "Utilities_MUSD_per_yr": 0.10,
+    "Materials_MUSD_per_yr": 0.10,
+    "WorkingCapital_MUSD_per_yr": 0.05,
+}
+
+
+def gen_cost_breakdown(comparison_rows):
+    rows = []
+    for r in comparison_rows:
+        nac = r["NAC_M$/yr"]
+        # small per-scenario jitter so the split isn't identical everywhere,
+        # then renormalize so the components still sum to NAC exactly.
+        jittered = {k: max(0.01, v + random.uniform(-0.03, 0.03))
+                    for k, v in COST_CATEGORY_BASE_PCT.items()}
+        total_pct = sum(jittered.values())
+        row = {"Scenario": r["Scenario"]}
+        for key, pct in jittered.items():
+            row[key] = round(nac * pct / total_pct, 4)
+        row["NAC_MUSD_per_yr"] = nac
+        rows.append(row)
+    return rows
+
+
 def write_csv(path, rows):
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
@@ -171,3 +211,6 @@ if __name__ == "__main__":
 
     feed_rows = [{"Scenario": s, **vals} for s, vals in FEEDSTOCKS.items()]
     write_csv("data/feedstock_composition.csv", feed_rows)
+
+    cost_rows = gen_cost_breakdown(comparison_rows)
+    write_csv("data/cost_breakdown.csv", cost_rows)

@@ -1,0 +1,6 @@
+Scenario,Capital_MUSD_per_yr,Overhead_MUSD_per_yr,Labor_MUSD_per_yr,Utilities_MUSD_per_yr,Materials_MUSD_per_yr,WorkingCapital_MUSD_per_yr,NAC_MUSD_per_yr
+Household,1.7591,0.7722,0.7262,0.3078,0.3819,0.1637,4.1109
+Restaurant,2.4413,0.9115,0.7263,0.5357,0.5268,0.2029,5.3446
+Institutional,2.4306,1.2327,0.8798,0.7303,0.6183,0.1383,6.03
+Retail,2.4,1.0676,0.9502,0.6698,0.645,0.1599,5.8926
+Market,1.4149,0.5496,0.4863,0.2482,0.3131,0.2671,3.2791
