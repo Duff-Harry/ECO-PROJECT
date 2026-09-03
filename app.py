@@ -270,9 +270,11 @@ if "pending_nav_choice" in st.session_state:
     st.session_state["nav_choice"] = st.session_state.pop("pending_nav_choice")
 
 # The 3 Results sub-pages stay hidden until Results itself (or one of them)
-# is the active selection — then they appear indented right under it.
+# is the active selection, then they appear indented right under it (no
+# arrow, just leading spaces so it still reads as nested).
+SUB_INDENT = "    "
 _current_choice = st.session_state.get("nav_choice", "Instructions")
-_results_active = _current_choice == "Results" or _current_choice.startswith("↳ ")
+_results_active = _current_choice == "Results" or _current_choice.startswith(SUB_INDENT)
 
 NAV_OPTIONS = [
     "Instructions",
@@ -280,7 +282,7 @@ NAV_OPTIONS = [
     "Technology Specifications",
     "Cost Specifications",
     "Results",
-    *([f"↳ {sub}" for sub in RESULTS_SUBVIEWS] if _results_active else []),
+    *([f"{SUB_INDENT}{sub}" for sub in RESULTS_SUBVIEWS] if _results_active else []),
     "Environmental Justice",
 ]
 
@@ -288,9 +290,9 @@ choice = st.sidebar.radio(
     "Section", NAV_OPTIONS, key="nav_choice", label_visibility="collapsed"
 )
 
-if choice.startswith("↳ "):
+if choice.startswith(SUB_INDENT):
     section = "Results"
-    results_subview = choice[2:]
+    results_subview = choice[len(SUB_INDENT):]
 else:
     section = choice
     results_subview = None
@@ -918,7 +920,7 @@ def render_results_landing(subviews):
     st.write("Choose a pathway to view its results.")
     for sub in subviews:
         if st.button(sub, key=f"results_landing_{sub}", width="stretch"):
-            st.session_state["pending_nav_choice"] = f"↳ {sub}"
+            st.session_state["pending_nav_choice"] = f"{SUB_INDENT}{sub}"
             st.rerun()
 
 
