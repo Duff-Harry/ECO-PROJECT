@@ -258,15 +258,42 @@ scenarios = sorted(pareto_df["Scenario"].unique())
 st.sidebar.markdown("[← Back to home](?)")
 st.sidebar.title("Food Waste Treatment Explorer")
 
-NAV_SECTIONS = [
+# Results has 3 sub-pages, listed right under it in the sidebar (indented
+# with an arrow). Placeholders for now: what each one shows is decided later.
+RESULTS_SUBVIEWS = [
+    "Lowest Cost Pathways",
+    "Lowest Environmental Impact Pathways",
+    "Best Cost & Environmental Impact Pathways",
+]
+
+if "pending_nav_choice" in st.session_state:
+    st.session_state["nav_choice"] = st.session_state.pop("pending_nav_choice")
+
+# The 3 Results sub-pages stay hidden until Results itself (or one of them)
+# is the active selection — then they appear indented right under it.
+_current_choice = st.session_state.get("nav_choice", "Instructions")
+_results_active = _current_choice == "Results" or _current_choice.startswith("↳ ")
+
+NAV_OPTIONS = [
     "Instructions",
     "Feed Inputs",
     "Technology Specifications",
     "Cost Specifications",
     "Results",
+    *([f"↳ {sub}" for sub in RESULTS_SUBVIEWS] if _results_active else []),
     "Environmental Justice",
 ]
-section = st.sidebar.radio("Section", NAV_SECTIONS, label_visibility="collapsed")
+
+choice = st.sidebar.radio(
+    "Section", NAV_OPTIONS, key="nav_choice", label_visibility="collapsed"
+)
+
+if choice.startswith("↳ "):
+    section = "Results"
+    results_subview = choice[2:]
+else:
+    section = choice
+    results_subview = None
 
 if "selected_scenario" not in st.session_state:
     st.session_state["selected_scenario"] = None  # gate: nothing chosen yet in Feed Inputs
@@ -886,6 +913,15 @@ def render_placeholder(name):
     st.info(f"{name}: coming soon.")
 
 
+def render_results_landing(subviews):
+    st.title("Results")
+    st.write("Choose a pathway to view its results.")
+    for sub in subviews:
+        if st.button(sub, key=f"results_landing_{sub}", width="stretch"):
+            st.session_state["pending_nav_choice"] = f"↳ {sub}"
+            st.rerun()
+
+
 # ---------------------------------------------------------------------------
 # Section: Results (the dashboard)
 # ---------------------------------------------------------------------------
@@ -1191,6 +1227,9 @@ elif section == "Technology Specifications":
 elif section == "Cost Specifications":
     render_cost_specifications(cost_df, scenarios)
 elif section == "Results":
-    render_results(pareto_df, comparison_df, feedstock_df, cost_df, scenarios)
+    if results_subview is None:
+        render_results_landing(RESULTS_SUBVIEWS)
+    else:
+        render_placeholder(results_subview)
 elif section == "Environmental Justice":
     render_placeholder("Environmental Justice")
