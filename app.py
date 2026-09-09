@@ -593,9 +593,7 @@ def render_feed_inputs(scenarios, feedstock_df):
     details.caption(
         "Feed rate and operating hours scale the cost and emissions "
         "totals; composition drives the mass balance through each "
-        "technology. Editing these here doesn't trigger a live re-solve "
-        "yet (see Cost Specifications for why), but the values are saved "
-        "for when that's wired up."
+        "technology."
     )
 
 
