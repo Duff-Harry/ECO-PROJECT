@@ -472,9 +472,9 @@ def _feed_energy_stats(feed_row):
 def render_feed_inputs(scenarios, feedstock_df):
     st.title("Feed Inputs")
     st.write(
-        "Select the food waste type you're working with, then review the "
-        "stream details below. Everything here carries through to Cost "
-        "Specifications and Results."
+        "Select the food waste type you are working with, then review the "
+        "stream details below. Everything here is propagated through the "
+        "model and carries through to the Results."
     )
     st.subheader("Food Waste Type")
     current = st.session_state.get("selected_scenario")
