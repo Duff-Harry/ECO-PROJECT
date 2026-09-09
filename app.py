@@ -370,11 +370,11 @@ def render_instructions():
                            font-size:0.92rem;line-height:1.6;">
                     {items_html}
                 </ul>
-                """,
+                                """,
                 unsafe_allow_html=True,
             )
 
-st.subheader("What the model balances")
+    st.subheader("What the model balances")
 
     objectives = [
         (CAT["blue"], "Cost", "Net Annualized Cost (NAC): capital and "
