@@ -839,9 +839,9 @@ COST_COMPONENTS = [
 def render_cost_specifications(cost_df, scenarios):
     st.title("Cost Specifications")
     st.write(
-        "These are the cost, revenue, and disposal assumptions driving"
-        "the model-equipment costs, labor rates, utility prices, product revenue, and disposal fee. "
-        "TAdjust any your of them below to test your own assumptions."
+        "These are the cost, revenue, and disposal assumptions driving "
+        "the model- equipment costs, labor rates, utility prices, product revenue, and disposal fee. "
+        "Adjust any your of them below to test your own assumptions."
     )
 
     tab_tech, tab_global, tab_prices, tab_disposal = st.tabs(
