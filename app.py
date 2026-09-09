@@ -371,7 +371,9 @@ def render_instructions():
                 unsafe_allow_html=True,
             )
 
-    st.subheader("What the model balances")
+    import textwrap
+
+st.subheader("What the model balances")
 
     objectives = [
         (CAT["blue"], "Cost", "Net Annualized Cost (NAC): capital and "
@@ -386,20 +388,23 @@ def render_instructions():
                                             "oxygen depletion, in tN-eq/yr.")
     ]
 
-    cards_html = '<div style="display:flex;align-items:stretch;gap:1rem;">'
+    card_divs = []
     for color, obj_title, desc in objectives:
-        cards_html += f"""
-        <div style="flex:1;display:flex;flex-direction:column;
-                    background:{SURFACE};border:1px solid {GRIDLINE};
-                    border-top:4px solid {color};border-radius:12px;
-                    padding:1.2em;">
-          <div style="font-weight:700;margin-bottom:0.4em;
-                      color:{INK_PRIMARY};">{obj_title}</div>
-          <div style="color:{INK_SECONDARY};font-size:0.92rem;">
-              {desc}</div>
-        </div>
-        """
-    cards_html += '</div>'
+        card_divs.append(
+            f'<div style="flex:1;display:flex;flex-direction:column;'
+            f'background:{SURFACE};border:1px solid {GRIDLINE};'
+            f'border-top:4px solid {color};border-radius:12px;padding:1.2em;">'
+            f'<div style="font-weight:700;margin-bottom:0.4em;color:{INK_PRIMARY};">'
+            f'{obj_title}</div>'
+            f'<div style="color:{INK_SECONDARY};font-size:0.92rem;">{desc}</div>'
+            f'</div>'
+        )
+
+    cards_html = (
+        '<div style="display:flex;align-items:stretch;gap:1rem;">'
+        + "".join(card_divs)
+        + "</div>"
+    )
 
     st.markdown(cards_html, unsafe_allow_html=True)
 
