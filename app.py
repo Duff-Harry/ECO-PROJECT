@@ -372,6 +372,27 @@ def render_instructions():
             )
 
     st.subheader("What the model balances")
+
+    st.markdown(
+        """
+        <style>
+        div[data-testid="stHorizontalBlock"] {
+            align-items: stretch;
+        }
+        div[data-testid="column"] {
+            display: flex;
+        }
+        div[data-testid="column"] > div {
+            width: 100%;
+        }
+        div[data-testid="stVerticalBlock"] {
+            height: 100%;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     objectives = [
         (CAT["blue"], "Cost", "Net Annualized Cost (NAC): capital and "
                            "operating expense, minus revenue from "
@@ -391,7 +412,8 @@ def render_instructions():
                 f"""
                 <div style="background:{SURFACE};border:1px solid {GRIDLINE};
                             border-top:4px solid {color};border-radius:12px;
-                            padding:1.2em;height:100%;">
+                            padding:1.2em;height:100%;
+                            display:flex;flex-direction:column;">
                   <div style="font-weight:700;margin-bottom:0.4em;
                               color:{INK_PRIMARY};">{obj_title}</div>
                   <div style="color:{INK_SECONDARY};font-size:0.92rem;">
