@@ -29,6 +29,9 @@ from pathlib import Path
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+import streamlit as st
+import streamlit.components.v1 as components
+
 
 DATA_DIR = Path(__file__).parent / "data"
 
@@ -370,8 +373,6 @@ def render_instructions():
                 """,
                 unsafe_allow_html=True,
             )
-
-   import streamlit.components.v1 as components
 
 st.subheader("What the model balances")
 
