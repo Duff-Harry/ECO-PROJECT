@@ -371,7 +371,7 @@ def render_instructions():
                 unsafe_allow_html=True,
             )
 
-    import textwrap
+   import streamlit.components.v1 as components
 
 st.subheader("What the model balances")
 
@@ -393,7 +393,8 @@ st.subheader("What the model balances")
         card_divs.append(
             f'<div style="flex:1;display:flex;flex-direction:column;'
             f'background:{SURFACE};border:1px solid {GRIDLINE};'
-            f'border-top:4px solid {color};border-radius:12px;padding:1.2em;">'
+            f'border-top:4px solid {color};border-radius:12px;padding:1.2em;'
+            f'box-sizing:border-box;font-family:sans-serif;">'
             f'<div style="font-weight:700;margin-bottom:0.4em;color:{INK_PRIMARY};">'
             f'{obj_title}</div>'
             f'<div style="color:{INK_SECONDARY};font-size:0.92rem;">{desc}</div>'
@@ -406,7 +407,7 @@ st.subheader("What the model balances")
         + "</div>"
     )
 
-    st.markdown(cards_html, unsafe_allow_html=True)
+    components.html(cards_html, height=220, scrolling=False)
 
     st.caption(
         "No single route wins on all three. The model maps out the "
