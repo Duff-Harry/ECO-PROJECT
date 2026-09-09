@@ -409,7 +409,6 @@ def render_instructions():
         + "".join(card_divs)
         + "</div>"
     )
-
     components.html(cards_html, height=220, scrolling=False)
     st.caption(
         "No single route wins on all three. The model maps out the "
