@@ -310,7 +310,7 @@ def render_instructions():
         "This app helps you figure out the best way to treat a food-waste "
         "stream: the option that costs the least, pollutes the least, or "
         "strikes a balance between the two. Behind the scenes, it runs an "
-        "optimization model that tests every combination of treatmenttechnologies "
+        "optimization model that tests every combination of treatment technologies "
         "in the prcoessing pipeline and works out exactly how much of your waste"
         "stream should go through each one to hit your goal on any of "
         "these objectives."
