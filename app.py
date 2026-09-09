@@ -395,7 +395,7 @@ def render_instructions():
             f'<div style="flex:1;display:flex;flex-direction:column;'
             f'background:{SURFACE};border:1px solid {GRIDLINE};'
             f'border-top:4px solid {color};border-radius:12px;padding:1.2em;'
-            f'box-sizing:border-box;font-family:sans-serif;">'
+            f'box-sizing:border-box;">'
             f'<div style="font-weight:700;margin-bottom:0.4em;color:{INK_PRIMARY};">'
             f'{obj_title}</div>'
             f'<div style="color:{INK_SECONDARY};font-size:0.92rem;">{desc}</div>'
@@ -403,13 +403,14 @@ def render_instructions():
         )
 
     cards_html = (
-        '<div style="display:flex;align-items:stretch;gap:1rem;">'
+        '<div style="display:flex;align-items:stretch;gap:1rem;'
+        'font-family:\'Source Sans Pro\',-apple-system,BlinkMacSystemFont,'
+        '\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;">'
         + "".join(card_divs)
         + "</div>"
     )
 
     components.html(cards_html, height=220, scrolling=False)
-
     st.caption(
         "No single route wins on all three. The model maps out the "
         "tradeoff instead of picking one for you. See Results."
