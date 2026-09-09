@@ -373,26 +373,6 @@ def render_instructions():
 
     st.subheader("What the model balances")
 
-    st.markdown(
-        """
-        <style>
-        div[data-testid="stHorizontalBlock"] {
-            align-items: stretch;
-        }
-        div[data-testid="column"] {
-            display: flex;
-        }
-        div[data-testid="column"] > div {
-            width: 100%;
-        }
-        div[data-testid="stVerticalBlock"] {
-            height: 100%;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
     objectives = [
         (CAT["blue"], "Cost", "Net Annualized Cost (NAC): capital and "
                            "operating expense, minus revenue from "
@@ -405,23 +385,24 @@ def render_instructions():
                                             "and drive algal overgrowth and "
                                             "oxygen depletion, in tN-eq/yr.")
     ]
-    ocols = st.columns(3)
-    for col, (color, obj_title, desc) in zip(ocols, objectives):
-        with col:
-            st.markdown(
-                f"""
-                <div style="background:{SURFACE};border:1px solid {GRIDLINE};
-                            border-top:4px solid {color};border-radius:12px;
-                            padding:1.2em;height:100%;
-                            display:flex;flex-direction:column;">
-                  <div style="font-weight:700;margin-bottom:0.4em;
-                              color:{INK_PRIMARY};">{obj_title}</div>
-                  <div style="color:{INK_SECONDARY};font-size:0.92rem;">
-                      {desc}</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+
+    cards_html = '<div style="display:flex;align-items:stretch;gap:1rem;">'
+    for color, obj_title, desc in objectives:
+        cards_html += f"""
+        <div style="flex:1;display:flex;flex-direction:column;
+                    background:{SURFACE};border:1px solid {GRIDLINE};
+                    border-top:4px solid {color};border-radius:12px;
+                    padding:1.2em;">
+          <div style="font-weight:700;margin-bottom:0.4em;
+                      color:{INK_PRIMARY};">{obj_title}</div>
+          <div style="color:{INK_SECONDARY};font-size:0.92rem;">
+              {desc}</div>
+        </div>
+        """
+    cards_html += '</div>'
+
+    st.markdown(cards_html, unsafe_allow_html=True)
+
     st.caption(
         "No single route wins on all three. The model maps out the "
         "tradeoff instead of picking one for you. See Results."
