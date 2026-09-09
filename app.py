@@ -373,12 +373,16 @@ def render_instructions():
 
     st.subheader("What the model balances")
     objectives = [
-        (CAT["blue"], "Cost", "Annualized cost (NAC): capital plus "
-                               "operating expense, in M$/yr."),
+        (CAT["blue"], "Cost", "Net Annualized Cost (NAC): capital and "
+                           "operating expense, minus revenue from "
+                           "recovered products, in M$/yr."),
         (CAT["orange"], "GHG emissions", "The route's greenhouse-gas "
                                           "footprint, in tCO2e/yr."),
-        (CAT["aqua"], "Marine eutrophication", "Nitrogen runoff impact on "
-                                                "waterways, in t N-eq/yr."),
+        (CAT["aqua"], "Marine eutrophication", "Potential for excess "
+                                            "nitrogen loading (to air, water, "
+                                            "and soil) to reach coastal waters "
+                                            "and drive algal overgrowth and "
+                                            "oxygen depletion, in tN-eq/yr.")
     ]
     ocols = st.columns(3)
     for col, (color, obj_title, desc) in zip(ocols, objectives):
